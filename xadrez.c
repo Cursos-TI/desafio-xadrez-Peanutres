@@ -1,69 +1,125 @@
 #include <stdio.h>
+//inclusão de variaveis
+char movimento1[40], movimento2[40]; //uso de input manual para ficar mais facil, dado que por outros meios seria mais dificultoso atualmente
+char opcaopeca;
+int casas;
 
-int main(){
-    int movimento, i;
-    int peca;
-
-    printf("Bem-vindo ao teste de estrutura de reptição!");
-    printf("Selecione a peça a ser testada\n");
-    printf("1. Torre\n");
-    printf("2. Bispo\n");
-    printf("3. Rainha\n");
-    scanf("%d", &peca);
-
-    switch (peca)
+//loop torre
+void torre(int casas){
+    if (casas > 0)
     {
-    case 1:
-        printf("Torre\n");
-        for (i = 1; i <= 5; i++)
-        {
-            printf("%d direita\n", i);
-        }
-        
-        break;
+        printf("%s\n", movimento1);
+        torre(casas - 1);
+    }
+    
+}
 
-    case 2:
-        printf("Bispo\n");
-        printf("Entre com quantos movimentos a peça deverá fazer:\n");
-        scanf("%d", &movimento);
-        i = 1;
-        while (i <= movimento)
-        {
-            printf("%d Cima, Direta\n", i);
-            i++;
-        }
-        break;
+//loop bispo
+void bispo(int casas){
+    if (casas > 0)
+    {
+        printf("%s\n", movimento1);
+        printf("%s\n", movimento2);
+        bispo(casas - 1);
+    }
+    
+}
 
-    case 3:
-        printf("Rainha\n");
-        printf("Entre com quantos movimentos a peça deverá fazer:\n");
-        scanf("%d", &movimento);
-        i = 1;
-        do
-        {
-            printf("%d Esquerda\n", i);
-            i++;
-        } while (i <= movimento);
-        break;
-        
-    default:
-        printf("Opção invalida!!\n");
-        break;
+//loop rainha
+void rainha(int casas){
+    if (casas > 0)
+    {
+        printf("%s\n", movimento1);
+        printf("%s\n", movimento2);
+        rainha(casas - 1);
+    }
+    
+}
+
+//loop cavalo
+void cavalo(int casas){
+    if (casas > 0)
+    {
+        printf("%s\n", movimento1);
+        cavalo(casas - 1);
     }
 
+}
+
+//jogo/codigo principal
+int main(){
+
+    printf("Bem-vindo ao jogo de Xadrez da MateCheck\n");
+    printf("Selecione a peça a ser movimentada:\n"); //seleção da peça pelo jogador
+    printf("B. Bispo\n");
+    printf("C. Cavalo\n");
+    printf("T. Torre\n");
+    printf("R. Rainha\n");
+    scanf(" %c", &opcaopeca);
+
+    switch (opcaopeca) //switch para adequar a escolha correta
+    {
+    case 't':
+    case 'T':
+        printf("Você selecionou Torre\n");
+        printf("Digite para aonde a peça de moverá: ");
+        scanf(" %s", &movimento1);
+        printf("Agora digite quantas vezes ela vai se mover: ");
+        scanf(" %d", &casas);
+        printf("\n");
+
+        torre(casas);
+        break;
+
+    case 'b':
+    case 'B':
+        printf("Você selecionou Bispo\n");
+        printf("Digite para aonde a peça de moverá: \n");
+        printf("Obs.: Neste só poderar ser direta ou esquerda!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento1);
+        printf("Obs.: Neste deverar ser cima ou baixo!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento2);
+        printf("Agora digite quantas vezes ela vai se mover: \n");
+        scanf(" %d", &casas);
+        printf("\n");
+
+        bispo(casas);
+        break;
+
+    case 'r':
+    case 'R':
+        printf("Você selecionou Rainha\n");
+        printf("Digite para aonde a peça de moverá: \n");
+        printf("Obs.: Neste só poderar ser direta, esquerda ou nenhum!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento1);
+        printf("Obs.: Neste deverar ser cima, baixo ou nenhum!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento2);
+        printf("Agora digite quantas vezes ela vai se mover: \n");
+        scanf(" %d", &casas);
+        printf("\n");
+
+        rainha(casas);
+        break;
+
+    case 'c':
+    case 'C':
+        printf("Você selecionou Cavalo\n");
+        printf("Digite para aonde a peça de moverá: \n");
+        printf("Obs.: Neste só poderar ser direta ou esquerda!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento1);
+        printf("Obs.: Neste deverar ser cima ou baixo!!\n"); //observação para avisar a limitação ao jogador
+        scanf(" %s", &movimento2);
+        printf("\n");
+
+        cavalo(2);
+
+        printf("%s", movimento2);
+        break;
+    
+    default:
+        printf("Opção Invalida!!!\n");
+        break;
+    }
     return 0;
 }
 
-    // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
-
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
-
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
-
-    return 0;
-}
